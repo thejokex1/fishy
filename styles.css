@@ -1,0 +1,150 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Baloo 2', sans-serif; /* Bubble font */
+  }
+
+  body {
+    cursor: none; /* Hides the cursor */
+  }
+  
+  
+  .fishbowl {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, #74c8e6, #037dab);
+    overflow: hidden;
+  }
+  
+  .bubble {
+    position: absolute;
+    bottom: 0;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    background: #5cd0ec80;
+    border-radius: 50%;
+    animation: float-up var(--duration) infinite ease-in-out;
+  }
+  
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-120vh);
+      opacity: 0.8;
+    }
+  }
+  
+  .grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    background: repeating-linear-gradient(0deg, #1e8700, #1e8700 2px, transparent 2px, transparent 4px);
+    animation: wave-motion 3s infinite ease-in-out;
+    transform-origin: bottom;
+  }
+  
+  @keyframes wave-motion {
+    0% {
+      transform: scaleY(1) translateX(0);
+    }
+    25% {
+      transform: scaleY(1.1) translateX(-5px); /* Sway to the left */
+    }
+    50% {
+      transform: scaleY(1.2) translateX(0); /* Stretch upward */
+    }
+    75% {
+      transform: scaleY(1.1) translateX(5px); /* Sway to the right */
+    }
+    100% {
+      transform: scaleY(1) translateX(0); /* Back to original */
+    }
+  }
+  
+  #fish {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    background: orange;
+    border-radius: 50% 50% 40% 40%;
+    transform-origin: center;
+  }
+  
+  #fish .eye {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+  }
+  
+  .left-eye {
+    top: 15px;
+    left: 20px;
+  }
+  
+  .right-eye {
+    top: 15px;
+    left: 60px;
+  }
+  
+  .eye .pupil {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Navigation Bar */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .nav-bar a, .nav-bar button {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-bar button:hover, .nav-bar a:hover {
+    color: yellow;
+  }
+
+  .title-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 1000; /* Ensure it's above other elements */
+    pointer-events: none; /* Make sure it doesn’t block interactions */
+  }
+
+  
+  
+  
+  
