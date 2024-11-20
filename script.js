@@ -82,3 +82,38 @@ function createBubble() {
 
 // Generate bubbles periodically
 setInterval(createBubble, 500); // Creates a bubble every 500ms
+
+let lastX = null;
+let lastY = null;
+let totalDistance = 0;
+
+const counterElement = document.getElementById('counter');
+
+// Function to calculate the distance between two points
+function calculateDistance(x1, y1, x2, y2) {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+}
+
+// Mouse movement event
+document.addEventListener('mousemove', (event) => {
+  if (lastX !== null && lastY !== null) {
+    const distance = calculateDistance(lastX, lastY, event.pageX, event.pageY);
+    totalDistance += distance;
+    counterElement.textContent = `Swam ${Math.round(totalDistance / 10)} Meters`; // Divide by 10 for a more realistic "meter" scale
+  }
+  lastX = event.pageX;
+  lastY = event.pageY;
+});
+
+// Touch movement event for mobile
+document.addEventListener('touchmove', (event) => {
+  const touch = event.touches[0];
+  if (lastX !== null && lastY !== null) {
+    const distance = calculateDistance(lastX, lastY, touch.pageX, touch.pageY);
+    totalDistance += distance;
+    counterElement.textContent = `Swam ${Math.round(totalDistance / 10)} Meters`; // Divide by 10 for a more realistic "meter" scale
+  }
+  lastX = touch.pageX;
+  lastY = touch.pageY;
+});
+
