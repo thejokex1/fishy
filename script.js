@@ -99,7 +99,7 @@ document.addEventListener('mousemove', (event) => {
   if (lastX !== null && lastY !== null) {
     const distance = calculateDistance(lastX, lastY, event.pageX, event.pageY);
     totalDistance += distance;
-    counterElement.textContent = `Swam ${Math.round(totalDistance / 1)} Meters`; // Divide by 10 for a more realistic "meter" scale
+    counterElement.textContent = `Swam ${Math.round(totalDistance / 5)} Meters`; // Divide by 10 for a more realistic "meter" scale
   }
   lastX = event.pageX;
   lastY = event.pageY;
