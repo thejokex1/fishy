@@ -50,7 +50,7 @@ document.addEventListener('touchmove', (e) => {
 // Copy contract to clipboard
 // Copy contract to clipboard and update button text temporarily
 copyContractButton.addEventListener('click', () => {
-    navigator.clipboard.writeText('XXXXXXXXXXXX').then(() => {
+    navigator.clipboard.writeText('123').then(() => {
       const originalText = copyContractButton.textContent;
       copyContractButton.textContent = 'Copied!';
       setTimeout(() => {
