@@ -43,19 +43,15 @@ let userCountry = null;
 // Fetch the country codes JSON file from the flagcdn API
 let countryCodeMap = {};
 
-// Fetch user's country using IP Geolocation API
-fetch("http://ip-api.com/json/")
+// Fetch user's country using IP Geolocation API over HTTPS
+fetch("https://ip-api.com/json/")
   .then((response) => response.json())
   .then((data) => {
     userCountry = data.country || "Unknown";
     console.log(`User is from: ${userCountry}`);
     updateCountryScoreDisplay(); // Display initial country score
   })
-  .catch((error) => {
-    console.error("Error fetching country:", error);
-    userCountry = "Unknown"; // Set default if there's an error
-    updateCountryScoreDisplay(); // Display score with fallback value
-  });
+  .catch((error) => console.error("Error fetching country:", error));
 
 // Fetch the country codes JSON file
 fetch("https://flagcdn.com/en/codes.json")
