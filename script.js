@@ -117,3 +117,83 @@ document.addEventListener('touchmove', (event) => {
   lastY = touch.pageY;
 });
 
+const leaderboardButton = document.getElementById('show-leaderboard');
+const leaderboardPanel = document.getElementById('leaderboard');
+const leaderboardList = document.getElementById('leaderboard-list');
+
+// Toggle leaderboard visibility
+leaderboardButton.addEventListener('click', () => {
+  if (leaderboardPanel.style.display === 'none') {
+    leaderboardPanel.style.display = 'block';
+    fetchLeaderboard(); // Fetch data when opened
+  } else {
+    leaderboardPanel.style.display = 'none';
+  }
+});
+
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Fetch leaderboard from Firebase
+function fetchLeaderboard() {
+  const leaderboardRef = db.ref('leaderboard');
+  leaderboardRef.once('value', (snapshot) => {
+    const data = snapshot.val() || {};
+    const sortedData = Object.entries(data)
+      .sort((a, b) => b[1] - a[1]) // Sort by total distance
+      .map(([country, distance]) => ({ country, distance }));
+
+    leaderboardList.innerHTML = ''; // Clear the list
+
+    // Populate the leaderboard
+    sortedData.forEach(({ country, distance }) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${country}: ${Math.round(distance / 10).toLocaleString()} Meters`;
+      leaderboardList.appendChild(listItem);
+    });
+  });
+}
+
+// Detect user's country
+let userCountry = 'Unknown';
+function detectCountry() {
+  fetch('https://ip-api.com/json/')
+    .then((response) => response.json())
+    .then((data) => {
+      userCountry = data.country || 'Unknown';
+    })
+    .catch((error) => console.error('Country detection failed:', error));
+}
+
+// Call country detection on page load
+detectCountry();
+
+// Track and update leaderboard
+let totalDistance = 0; // User's distance
+document.addEventListener('mousemove', (event) => {
+  if (lastX !== null && lastY !== null) {
+    const distance = calculateDistance(lastX, lastY, event.pageX, event.pageY);
+    totalDistance += distance;
+
+    // Update Firebase
+    const countryRef = db.ref(`leaderboard/${userCountry}`);
+    countryRef.once('value').then((snapshot) => {
+      const currentDistance = snapshot.val() || 0;
+      countryRef.set(currentDistance + distance);
+    });
+  }
+  lastX = event.pageX;
+  lastY = event.pageY;
+});
