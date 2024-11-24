@@ -133,13 +133,14 @@ leaderboardButton.addEventListener('click', () => {
 
 // Firebase Configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAx87w5mVBoTWIzp52T5zBV9j4UDyFqt9g",
+  authDomain: "fish-in-a-bowl.firebaseapp.com",
+  databaseURL: "https://fish-in-a-bowl-default-rtdb.firebaseio.com",
+  projectId: "fish-in-a-bowl",
+  storageBucket: "fish-in-a-bowl.firebasestorage.app",
+  messagingSenderId: "592391681079",
+  appId: "1:592391681079:web:a0d4b68656397e63f33bb2",
+  measurementId: "G-NGPZNXG98J"
 };
 
 // Initialize Firebase
