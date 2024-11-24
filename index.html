@@ -1,60 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fish In A Bowl</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="fishFavicon.png">
-  <!-- SEO Meta Tags -->
-<meta name="description" content="A goldfish circles its tiny bowl, mistaking it for the world. Just like us in our bubbles, stuck in endless loops. But what if we shattered the glass and dreamed of the ocean? Join the cult of clarity—where we don’t just swim, we break free.">
-
-<!-- Open Graph Meta Tags for Sharing -->
-<meta property="og:title" content="Fish In A Bowl $FISH">
-<meta property="og:description" content="A goldfish circles its tiny bowl, mistaking it for the world. Just like us in our bubbles, stuck in endless loops. But what if we shattered the glass and dreamed of the ocean? Join the cult of clarity—where we don’t just swim, we break free.">
-<meta property="og:image" content="https://fishinabowl.net/fishSeo.png">
-<meta property="og:url" content="https://fishinabowl.net">
-<meta property="og:type" content="website">
-
-
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fish In A Bowl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="fishFavicon.png" />
+    <!-- Make sure the favicon exists -->
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
     <div class="title-container">
-        <h1>Fish In A Bowl</h1>
-        <p>move/swipe around!</p>
-        <p id="counter">Swam 0 Meters</p>
-        <p id="milestone-message"></p>
+      <h1>Fish In A Bowl</h1>
+      <p>move/swipe around!</p>
+      <p id="counter">Swam 0 Meters</p>
+      <p id="milestone-message"></p>
+    </div>
+
+    <div class="fishbowl">
+      <div id="fish">
+        <div class="eye left-eye">
+          <div class="pupil"></div>
+        </div>
+        <div class="eye right-eye">
+          <div class="pupil"></div>
+        </div>
+      </div>
+      <div class="grass"></div>
+      <!-- Add this for the green waves -->
+    </div>
+    <div class="leaderboard-container">
+      <!-- Top Country Preview -->
+      <div id="top-country-preview" class="top-country">
+        <img id="top-country-flag" src="" alt="Country Flag" />
+        <span id="top-country-name">#1 Country</span>
+        <span id="top-country-score">0 Meters</span>
+        <button class="toggle-button" id="toggle-leaderboard">⬇</button>
       </div>
 
-      
-      
-  <div class="fishbowl">
-    <div class="bubble" style="--x: 10%; --size: 40px; --duration: 8s;"></div>
-    <div class="bubble" style="--x: 30%; --size: 60px; --duration: 10s;"></div>
-    <div class="bubble" style="--x: 50%; --size: 50px; --duration: 9s;"></div>
-    <div class="bubble" style="--x: 70%; --size: 30px; --duration: 7s;"></div>
-    <div class="bubble" style="--x: 90%; --size: 40px; --duration: 8s;"></div>
-    <div class="grass"></div>
-    <div id="fish">
-      <div class="eye left-eye">
-        <div class="pupil"></div>
-      </div>
-      <div class="eye right-eye">
-        <div class="pupil"></div>
+      <!-- Full Leaderboard (Initially Hidden) -->
+      <div class="full-leaderboard hidden" id="full-leaderboard">
+        <div class="leaderboard-entry">
+          <span class="country-name">Country 1</span>
+          <span class="country-score">0 Meters</span>
+        </div>
+        <div class="leaderboard-entry">
+          <span class="country-name">Country 2</span>
+          <span class="country-score">0 Meters</span>
+        </div>
+        <div class="leaderboard-entry">
+          <span class="country-name">Country 3</span>
+          <span class="country-score">0 Meters</span>
+        </div>
+        <!-- Add more entries here -->
       </div>
     </div>
-  </div>
 
-  <!-- Bottom Navigation -->
-  <div class="nav-bar">
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+      <a href="https://dexscreener.com" target="_blank">Dex</a>
+      <a href="https://t.me/fishsoltoken" target="_blank">Telegram</a>
+      <a href="https://x.com/fishsoltoken" target="_blank">X</a>
+      <button id="copyContract">Copy Contract</button>
+    </div>
 
-    <a href="https://dexscreener.com" target="_blank">Dex</a>
-    <a href="https://t.me/fishsoltoken" target="_blank">Telegram</a>
-    <a href="https://x.com/fishsoltoken" target="_blank">X</a>
-    <button id="copyContract">Copy Contract</button>
-  </div>
+    <!-- Firebase Setup -->
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-  <script src="script.js"></script>
-</body>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAdaHDcYMdtYboaSz7I2AwjCPgTpa-LTws",
+        authDomain: "fish-4df56.firebaseapp.com",
+        projectId: "fish-4df56",
+        storageBucket: "fish-4df56.firebasestorage.app",
+        messagingSenderId: "1015715374347",
+        appId: "1:1015715374347:web:ada513428cb57a49d0ee0e",
+        measurementId: "G-V2RG4M0PPY",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Make Firestore accessible in your custom script
+      window.db = db;
+      window.doc = doc;
+      window.getDoc = getDoc;
+      window.setDoc = setDoc;
+    </script>
+
+    <!-- Custom Game Script -->
+    <script src="script.js" type="module"></script>
+  </body>
 </html>
