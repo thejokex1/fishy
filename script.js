@@ -40,20 +40,18 @@ const db = window.db;
 // Country Detection
 let userCountry = null;
 
-// Fetch the country codes JSON file from the flagcdn API
-let countryCodeMap = {};
-
-// Fetch user's country using IP Geolocation API over HTTPS
-fetch("https://ip-api.com/json/")
+// Fetch user's country using IP Geolocation API
+fetch("https://get.geojs.io/v1/ip/geo.json")
   .then((response) => response.json())
   .then((data) => {
     userCountry = data.country || "Unknown";
     console.log(`User is from: ${userCountry}`);
-    updateCountryScoreDisplay(); // Display initial country score
+    updateCountryScoreDisplay(); // Update the UI as needed
   })
   .catch((error) => console.error("Error fetching country:", error));
 
 // Fetch the country codes JSON file
+let countryCodeMap = {};
 fetch("https://flagcdn.com/en/codes.json")
   .then((response) => response.json())
   .then((data) => {
@@ -122,7 +120,7 @@ function calculateDistance(x1, y1, x2, y2) {
 }
 
 document.addEventListener("mousemove", (event) => {
-  if (lastX !== null && lastY !== null) {
+  if (lastX !== null && lastY !== null && userCountry) {
     const distance = calculateDistance(lastX, lastY, event.pageX, event.pageY);
     totalDistance += distance;
     accumulatedDistance += distance;
@@ -167,13 +165,6 @@ async function updateCountryScoreDisplay() {
 
 // Call periodicUpdate every 1 second
 setInterval(periodicUpdate, 1000);
-
-toggleButton.addEventListener("click", () => {
-  const isExpanded = fullLeaderboard.classList.contains("expanded");
-  fullLeaderboard.classList.toggle("expanded", !isExpanded); // Toggle visibility
-  fullLeaderboard.classList.toggle("hidden", isExpanded); // Hide when collapsed
-  toggleButton.textContent = isExpanded ? "⬇" : "⬆"; // Update arrow direction
-});
 
 // Populate Leaderboard
 function setupLeaderboardListener() {
@@ -257,7 +248,6 @@ function setupTopCountryPreview() {
 setupTopCountryPreview();
 
 // Toggle Button Logic
-
 toggleButton.addEventListener("click", () => {
   const fullLeaderboard = document.getElementById("full-leaderboard");
   const isExpanded = !fullLeaderboard.classList.contains("hidden");
@@ -267,23 +257,21 @@ toggleButton.addEventListener("click", () => {
 
 setupLeaderboardListener();
 
+// Country normalization
 function normalizeCountryName(countryName) {
   const normalizationMap = {
     Türkiye: "Turkey", // Normalize Turkish to the standard English country name
     Deutschland: "Germany", // Example for German
+    "The Netherlands": "Netherlands",
     // Add more normalization rules as needed
   };
 
-  // If the country is in the normalization map, return the normalized value
   return normalizationMap[countryName] || countryName; // Return the original name if no match
 }
 
 // Function to get the country code based on the normalized country name
 function getCountryCode(countryName) {
-  // First, normalize the country name
   const normalizedCountryName = normalizeCountryName(countryName);
-
-  // Now, use the normalized country name to find the country code
   const countryCode = Object.keys(countryCodeMap).find(
     (key) => countryCodeMap[key] === normalizedCountryName
   );
