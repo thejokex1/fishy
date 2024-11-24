@@ -1,157 +1,244 @@
 /* General Reset */
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Baloo 2', sans-serif; /* Bubble font */
-  }
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: "Baloo 2", sans-serif; /* Bubble font */
+}
 
-  body {
-    cursor: none; /* Hides the cursor */
-  }
-  
-  
-  .fishbowl {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle, #74c8e6, #037dab);
-    overflow: hidden;
-  }
-  
-  .bubble {
-    position: absolute;
-    bottom: 0;
-    left: var(--x);
-    width: var(--size);
-    height: var(--size);
-    background: #5cd0ec80;
-    border-radius: 50%;
-    animation: float-up var(--duration) infinite ease-in-out;
-  }
-  
-  @keyframes float-up {
-    0% {
-      transform: translateY(100vh);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-120vh);
-      opacity: 0.8;
-    }
-  }
-  
-  .grass {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 150px;
-    background: repeating-linear-gradient(0deg, #1e8700, #1e8700 2px, transparent 2px, transparent 4px);
-    animation: wave-motion 3s infinite ease-in-out;
-    transform-origin: bottom;
-  }
-  
-  @keyframes wave-motion {
-    0% {
-      transform: scaleY(1) translateX(0);
-    }
-    25% {
-      transform: scaleY(1.1) translateX(-5px); /* Sway to the left */
-    }
-    50% {
-      transform: scaleY(1.2) translateX(0); /* Stretch upward */
-    }
-    75% {
-      transform: scaleY(1.1) translateX(5px); /* Sway to the right */
-    }
-    100% {
-      transform: scaleY(1) translateX(0); /* Back to original */
-    }
-  }
-  
-  #fish {
-    position: absolute;
-    width: 100px;
-    height: 50px;
-    background: orange;
-    border-radius: 50% 50% 40% 40%;
-    transform-origin: center;
-  }
-  
-  #fish .eye {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-  }
-  
-  .left-eye {
-    top: 15px;
-    left: 20px;
-  }
-  
-  .right-eye {
-    top: 15px;
-    left: 60px;
-  }
-  
-  .eye .pupil {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: black;
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  /* Navigation Bar */
-  .nav-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-  }
-  
-  .nav-bar a, .nav-bar button {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 18px;
-    color: white;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .nav-bar button:hover, .nav-bar a:hover {
-    color: yellow;
-  }
+body {
+  cursor: none; /* Hides the cursor */
+}
 
-  .title-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 1000; /* Ensure it's above other elements */
-    pointer-events: none; /* Make sure it doesn’t block interactions */
-  }
+.fishbowl {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, #74c8e6, #037dab);
+  overflow: hidden;
+}
 
-  #counter {
-    font-family: 'Baloo 2', sans-serif; /* Bubble font */
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.8); /* Transparent white */
-    margin: 10px 0 0 0;
-    text-align: center;
+.bubble {
+  position: absolute;
+  bottom: 0;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  background: #5cd0ec80;
+  border-radius: 50%;
+  animation: float-up var(--duration) infinite ease-in-out;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 1;
   }
-  
-  
-  
-  
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0.8;
+  }
+}
+
+.grass {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  background: repeating-linear-gradient(
+    0deg,
+    #1e8700,
+    #1e8700 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: wave-motion 3s infinite ease-in-out;
+  transform-origin: bottom;
+}
+
+@keyframes wave-motion {
+  0% {
+    transform: scaleY(1) translateX(0);
+  }
+  25% {
+    transform: scaleY(1.1) translateX(-5px); /* Sway to the left */
+  }
+  50% {
+    transform: scaleY(1.2) translateX(0); /* Stretch upward */
+  }
+  75% {
+    transform: scaleY(1.1) translateX(5px); /* Sway to the right */
+  }
+  100% {
+    transform: scaleY(1) translateX(0); /* Back to original */
+  }
+}
+
+#fish {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  background: orange;
+  border-radius: 50% 50% 40% 40%;
+  transform-origin: center;
+}
+
+#fish .eye {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+}
+
+.left-eye {
+  top: 15px;
+  left: 20px;
+}
+
+.right-eye {
+  top: 15px;
+  left: 60px;
+}
+
+.eye .pupil {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: black;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Navigation Bar */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.nav-bar a,
+.nav-bar button {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-bar button:hover,
+.nav-bar a:hover {
+  color: yellow;
+}
+
+.title-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 1000; /* Ensure it's above other elements */
+  pointer-events: none; /* Make sure it doesn’t block interactions */
+}
+
+#counter {
+  font-family: "Baloo 2", sans-serif; /* Bubble font */
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8); /* Transparent white */
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+.leaderboard-container {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff; /* White background */
+  color: #333333; /* Dark gray text color */
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Lighter shadow for white theme */
+  width: 90%;
+  max-width: 400px;
+}
+
+#top-country-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd; /* Light gray border */
+  font-size: 16px;
+  color: #333333; /* Dark gray text color */
+  background: #f9f9f9; /* Light gray background for top preview */
+}
+
+#top-country-preview img {
+  width: 24px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+#top-country-preview span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333; /* Dark gray text */
+}
+
+#top-country-name,
+#top-country-score {
+  margin: 0 10px;
+}
+
+.full-leaderboard {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.leaderboard-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #eeeeee; /* Light border for leaderboard entries */
+  font-size: 14px;
+  color: #555555; /* Medium gray text */
+}
+
+.leaderboard-entry:last-child {
+  border-bottom: none; /* Remove border for the last entry */
+}
+
+.hidden {
+  display: none;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #333333; /* Dark gray text for button */
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px; /* Added padding for larger click area */
+  border-radius: 5px; /* Optional: Round button edges */
+}
+
+.toggle-button:hover {
+  background: rgba(0, 0, 0, 0.1); /* Highlight effect on hover */
+}
+
+.toggle-button:active {
+  background: rgba(0, 0, 0, 0.2); /* Active state effect */
+}
