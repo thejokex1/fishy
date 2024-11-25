@@ -20,13 +20,13 @@ import {
   const swimSound = document.getElementById("swimSound"); // Add this to reference the audio element
 
   // Leaderboard DOM Elements
-  const toggleButton = document.getElementById("toggle-leaderboard");
+  
   const fullLeaderboard = document.getElementById("full-leaderboard");
   const topCountryName = document.getElementById("top-country-name");
   const topCountryFlag = document.getElementById("top-country-flag");
   const topCountryScore = document.getElementById("top-country-score");
   const topCountryPreview = document.getElementById("top-country-preview");
-  
+
   let targetX = window.innerWidth / 2;
   let targetY = window.innerHeight / 2;
   let currentX = targetX;
@@ -289,12 +289,12 @@ document.addEventListener("touchmove", (e) => {
   setupTopCountryPreview();
   
   // Toggle Button Logic
-  toggleButton.addEventListener("click", () => {
-    const fullLeaderboard = document.getElementById("full-leaderboard");
+  function toggleLeaderboard() {
     const isExpanded = !fullLeaderboard.classList.contains("hidden");
-    fullLeaderboard.classList.toggle("hidden", isExpanded); // Show/Hide leaderboard
-    toggleButton.textContent = isExpanded ? "⬇" : "⬆"; // Update button text
-  });
+    fullLeaderboard.classList.toggle("hidden", isExpanded); // Toggle the visibility
+  }
+
+  topCountryPreview.addEventListener("click", toggleLeaderboard);
   
   setupLeaderboardListener();
   
