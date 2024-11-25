@@ -9,13 +9,17 @@ html {
 
 body {
   cursor: none; /* Hides the cursor */
+  background: url('sea.jpg') no-repeat center center fixed; /* Set background image */
+  background-size: cover; /* Make the image cover the entire screen */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+  font-family: "Baloo 2", sans-serif; /* Keep the existing font */
 }
 
 .fishbowl {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle, #74c8e6, #037dab);
   overflow: hidden;
 }
 
@@ -39,22 +43,6 @@ body {
     transform: translateY(-120vh);
     opacity: 0.8;
   }
-}
-
-.grass {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 150px;
-  background: repeating-linear-gradient(
-    0deg,
-    #1e8700,
-    #1e8700 2px,
-    transparent 2px,
-    transparent 4px
-  );
-  animation: wave-motion 3s infinite ease-in-out;
-  transform-origin: bottom;
 }
 
 @keyframes wave-motion {
@@ -147,7 +135,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
+  font-size: 20px;
+  color: #ffffffa4;
   z-index: 1000; /* Ensure it's above other elements */
   pointer-events: none; /* Make sure it doesn’t block interactions */
 }
@@ -182,6 +171,11 @@ body {
   font-size: 16px;
   color: #333333; /* Dark gray text color */
   background: #f9f9f9; /* Light gray background for top preview */
+  background-color: hsl(49, 65%, 50%); /* Bright blue for the header */
+  color: #fff; /* White text for contrast */
+  border-radius: 8px 8px 0 0; /* Rounded corners for the top only */
+  padding: 10px; /* Add spacing inside */
+  font-weight: bold; /* Emphasize the text */
 }
 
 #top-country-preview img {
@@ -207,6 +201,11 @@ body {
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     transition: max-height 0.3s ease-in-out; /* Smooth expand/collapse transition */
+    background-color: #f0f8ff; /* Light blue background */
+    color: #333; /* Dark text for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    padding: 10px; /* Add spacing inside the container */
 }
 
 .leaderboard-entry {
