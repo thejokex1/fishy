@@ -262,7 +262,11 @@ document.addEventListener("touchmove", (e) => {
             : `https://flagcdn.com/32x24/${country.toLowerCase()}.png`; // Use countryCode or fallback to country name
         } catch (error) {}
   
-        // Update the top country preview
+        // Prevent touchmove from affecting the rest of the page while scrolling the leaderboard
+fullLeaderboard.addEventListener("touchmove", (e) => {
+    e.stopPropagation(); // Stop the touch event from propagating to the page
+  });
+  
   
         // Update the top country preview
         document.getElementById("top-country-flag").src = flagUrl;
