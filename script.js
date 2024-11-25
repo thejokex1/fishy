@@ -71,20 +71,22 @@ import {
         fish.style.top = `${currentY - fish.offsetHeight / 2}px`;
         fish.style.transform = `rotate(${angle}deg)`;
       
-        // Play swimming sound when moving
+        // Play swimming sound when moving, but only after audio is initialized
         if (Math.abs(targetX - currentX) > 1 || Math.abs(targetY - currentY) > 1) {
-          if (swimSound.paused) {
+          if (isAudioInitialized && swimSound.paused) {
             swimSound.play();
           }
         } else {
-          swimSound.pause(); // Stop the sound when movement ceases
+          swimSound.pause(); // Stop sound if no movement
         }
       
         // Move eyes
         moveEyes(angle);
       
+        // Keep the animation loop running
         requestAnimationFrame(animateFish);
       }
+      
       
   
   function moveEyes(angle) {
@@ -146,18 +148,30 @@ document.addEventListener("touchmove", (e) => {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
   }
   
-  document.addEventListener("mousemove", (event) => {
-    if (lastX !== null && lastY !== null && userCountry) {
-      const distance = calculateDistance(lastX, lastY, event.pageX, event.pageY);
+  function handleMovement(x, y) {
+    if (lastX !== null && lastY !== null) {
+      const distance = calculateDistance(lastX, lastY, x, y);
       totalDistance += distance;
       accumulatedDistance += distance;
   
-      // Update UI locally
+      // Update UI
       updateCountryScoreDisplay();
     }
-    lastX = event.pageX;
-    lastY = event.pageY;
+    lastX = x;
+    lastY = y;
+  }
+  
+  // Mouse move (desktop)
+  document.addEventListener("mousemove", (e) => {
+    handleMovement(e.pageX, e.pageY);
   });
+  
+  // Touch move (mobile)
+  document.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0]; // Get the first touch point
+    handleMovement(touch.pageX, touch.pageY);
+  });
+  
   
   // Periodic database update function
   async function periodicUpdate() {
@@ -304,3 +318,24 @@ document.addEventListener("touchmove", (e) => {
     );
     return countryCode || null; // If not found, return null
   }
+
+  let isAudioInitialized = false;
+
+function initializeAudio() {
+  swimSound.play().then(() => {
+    swimSound.pause(); // Immediately pause after initializing
+    isAudioInitialized = true;
+  }).catch((error) => {
+    console.warn("Audio cannot play automatically. Waiting for user interaction.");
+  });
+
+  // Remove these listeners after initializing the audio
+  document.removeEventListener("click", initializeAudio);
+  document.removeEventListener("keydown", initializeAudio);
+  document.removeEventListener("touchstart", initializeAudio);
+}
+
+// Add listeners for first interaction (desktop and mobile)
+document.addEventListener("click", initializeAudio);
+document.addEventListener("keydown", initializeAudio);
+document.addEventListener("touchstart", initializeAudio);
